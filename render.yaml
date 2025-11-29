@@ -1,0 +1,51 @@
+services:
+  # Backend API
+  - type: web
+    name: bahia-hub-backend
+    env: node
+    plan: free
+    root: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        fromDatabase:
+          name: bahia-hub-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: API_KEY
+        generateValue: true
+      - key: EMAIL_SERVICE
+        value: gmail
+      - key: EMAIL_USER
+        value: tu_email@gmail.com
+      - key: EMAIL_PASS
+        value: tu_password_de_aplicacion
+
+  # Frontend
+  - type: web
+    name: bahia-hub-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          name: bahia-hub-backend
+          type: web
+          property: host
+        suffix: /api
+      - key: REACT_APP_API_KEY
+        fromService:
+          name: bahia-hub-backend
+          type: web
+          property: env/API_KEY
+
+databases:
+  - name: bahia-hub-db
+    plan: free
+    databaseName: bahia-hub
+    type: mongodb

@@ -1,0 +1,21 @@
+const apiKeyMiddleware = (req, res, next) => {
+  const apiKey = req.headers['x-api-key'] || req.query.api_key;
+  
+  if (!apiKey) {
+    return res.status(401).json({
+      error: 'API Key requerida',
+      message: 'Debe proporcionar una API Key válida para acceder a este recurso'
+    });
+  }
+  
+  if (apiKey !== process.env.API_KEY) {
+    return res.status(403).json({
+      error: 'API Key inválida',
+      message: 'La API Key proporcionada no es válida'
+    });
+  }
+  
+  next();
+};
+
+module.exports = apiKeyMiddleware;
