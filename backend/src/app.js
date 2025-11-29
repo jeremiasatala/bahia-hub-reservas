@@ -79,6 +79,19 @@ app.use((error, req, res, next) => {
   });
 });
 
+if (process.env.NODE_ENV === 'production') {
+  const path = require('path');
+  const __dirname = path.resolve();
+  
+  // Servir archivos estáticos de React build
+  app.use(express.static(path.join(__dirname, '../frontend/build')));
+  
+  // Para cualquier ruta no manejada por la API, servir React
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+  });
+}
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor corriendo en puerto ${PORT}`);

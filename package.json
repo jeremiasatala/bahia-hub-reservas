@@ -1,18 +1,17 @@
 {
   "name": "bahia-hub-fullstack",
   "version": "1.0.0",
-  "description": "Sistema de reservas Bahía Hub - Fullstack",
+  "description": "Sistema de reservas Bahía Hub - Fullstack en un solo servicio",
+  "main": "backend/src/app.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd backend && npm run dev",
-    "dev:frontend": "cd frontend && npm start",
-    "build": "npm run build:frontend",
-    "build:frontend": "cd frontend && npm run build",
-    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "start": "cd backend && npm start"
+    "dev": "node backend/src/app.js",
+    "start": "node backend/src/app.js",
+    "build": "cd frontend && npm install && npm run build",
+    "install-deps": "npm install && cd backend && npm install && cd ../frontend && npm install"
   },
-  "devDependencies": {
-    "concurrently": "^8.2.0"
+  "dependencies": {
+    "express": "^4.18.2",
+    "path": "^0.12.7"
   },
   "keywords": ["reservas", "bahia-hub", "fullstack"],
   "author": "Equipo Bahía Hub",
