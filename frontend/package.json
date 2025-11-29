@@ -5,10 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": ".",
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,6 +25,10 @@
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.29"
   },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -36,13 +41,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0"
-  },
-  "name": "bahia-hub-frontend",
-  "homepage": ".",
-  "scripts": {
-    "build": "GENERATE_SOURCEMAP=false react-scripts build"
+  "overrides": {
+    "ajv": "6.12.6",
+    "ajv-keywords": "3.5.2"
   }
 }
